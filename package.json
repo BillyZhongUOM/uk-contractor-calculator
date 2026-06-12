@@ -1,0 +1,11 @@
+{
+  "name": "uk-contractor-calculator",
+  "version": "1.0.0",
+  "description": "NetRate — UK contractor take-home & IR35 calculator (Outside/Limited vs Inside/Umbrella), 2025/26. Client-side, no backend.",
+  "type": "module",
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "license": "MIT",
+  "private": true
+}

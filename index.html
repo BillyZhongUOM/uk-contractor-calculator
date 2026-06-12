@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UK Contractor Take-Home Calculator 2025/26 — Outside vs Inside IR35 | NetRate</title>
+<meta name="description" content="Free UK contractor take-home pay calculator for 2025/26. Compare outside IR35 (limited company) vs inside IR35 (umbrella), with every deduction shown: corporation tax, dividends, employer and employee NI, apprenticeship levy and student loan. No sign-up." />
+<meta name="theme-color" content="#0E7C5A" />
+<link rel="canonical" href="https://billyzhonguom.github.io/uk-contractor-calculator/" />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="UK Contractor Take-Home Calculator 2025/26 — Outside vs Inside IR35" />
+<meta property="og:description" content="Compare limited company vs umbrella take-home pay with every deduction shown. 2025/26 rates. Free, no sign-up." />
+<meta property="og:url" content="https://billyzhonguom.github.io/uk-contractor-calculator/" />
+<meta property="og:image" content="https://billyzhonguom.github.io/uk-contractor-calculator/assets/og.png" />
+<meta property="og:site_name" content="NetRate" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="UK Contractor Take-Home Calculator 2025/26" />
+<meta name="twitter:description" content="Outside IR35 (limited) vs inside IR35 (umbrella), every deduction shown. Free." />
+<meta name="twitter:image" content="https://billyzhonguom.github.io/uk-contractor-calculator/assets/og.png" />
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="styles.css" />
+
+<!--
+  MONETISATION SLOT: Google AdSense.
+  To activate, add your publisher script here and uncomment the <ins> blocks below:
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  See MONETISATION.md for the full plan.
+-->
+
+<!-- Structured data: WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "NetRate UK Contractor Take-Home Calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+  "description": "Compare UK contractor take-home pay outside IR35 (limited company) and inside IR35 (umbrella) for the 2025/26 tax year.",
+  "url": "https://billyzhonguom.github.io/uk-contractor-calculator/"
+}
+</script>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="./" aria-label="NetRate home">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-name">NetRate</span>
+  </a>
+  <div class="topbar-right">
+    <span class="year-badge" title="Figures use 2025/26 rest-of-UK tax rates">Tax year 2025/26</span>
+    <a class="topbar-link" href="#how-it-works">How it works</a>
+    <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <span class="theme-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ TOOL (hero) ============ -->
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>UK Contractor Take-Home Calculator</h1>
+      <p class="lede">Compare your real take-home pay outside IR35 (limited company) and inside IR35 (umbrella), with every deduction shown for the 2025/26 tax year.</p>
+    </div>
+
+    <div class="tool">
+      <!-- Inputs -->
+      <form class="panel inputs" id="calcForm" autocomplete="off">
+        <div class="field">
+          <label for="dayRate">Day rate</label>
+          <div class="input-money">
+            <span class="prefix">£</span>
+            <input type="number" id="dayRate" inputmode="decimal" min="0" step="10" value="500" />
+            <span class="suffix">/ day</span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="daysPerWeek">Days / week</label>
+            <input type="number" id="daysPerWeek" inputmode="decimal" min="0.5" max="7" step="0.5" value="5" />
+          </div>
+          <div class="field">
+            <label for="weeksPerYear">Weeks / year</label>
+            <input type="number" id="weeksPerYear" inputmode="numeric" min="1" max="52" step="1" value="44" />
+            <p class="hint">Working weeks after holidays</p>
+          </div>
+        </div>
+
+        <button type="button" class="disclosure" id="advancedToggle" aria-expanded="false" aria-controls="advanced">
+          <span class="disclosure-label">Assumptions &amp; advanced</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+
+        <div class="advanced" id="advanced" hidden>
+          <div class="field">
+            <label for="salaryStrategy">Director's salary (outside IR35)</label>
+            <select id="salaryStrategy">
+              <option value="12570" selected>£12,570 — most tax-efficient, keeps state pension year</option>
+              <option value="5000">£5,000 — no employer NI</option>
+              <option value="custom">Custom amount</option>
+            </select>
+            <div class="input-money custom-salary" id="customSalaryWrap" hidden>
+              <span class="prefix">£</span>
+              <input type="number" id="customSalary" inputmode="numeric" min="0" step="500" value="12570" />
+              <span class="suffix">/ year</span>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="expenses">Business expenses <span class="muted">(Ltd)</span></label>
+              <div class="input-money">
+                <span class="prefix">£</span>
+                <input type="number" id="expenses" inputmode="numeric" min="0" step="250" value="0" />
+                <span class="suffix">/ yr</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="employerPension">Pension <span class="muted">(Ltd, employer)</span></label>
+              <div class="input-money">
+                <span class="prefix">£</span>
+                <input type="number" id="employerPension" inputmode="numeric" min="0" step="500" value="0" />
+                <span class="suffix">/ yr</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="umbrellaMargin">Umbrella margin</label>
+              <div class="input-money">
+                <span class="prefix">£</span>
+                <input type="number" id="umbrellaMargin" inputmode="numeric" min="0" step="1" value="25" />
+                <span class="suffix">/ week</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="umbrellaPension">Pension <span class="muted">(umbrella, sacrifice)</span></label>
+              <div class="input-money">
+                <span class="prefix">£</span>
+                <input type="number" id="umbrellaPension" inputmode="numeric" min="0" step="500" value="0" />
+                <span class="suffix">/ yr</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="checkline">
+              <input type="checkbox" id="diffRate" />
+              <span>Use a different rate for the inside-IR35 (umbrella) role</span>
+            </label>
+            <div class="input-money" id="umbrellaRateWrap" hidden>
+              <span class="prefix">£</span>
+              <input type="number" id="umbrellaDayRate" inputmode="decimal" min="0" step="10" value="500" />
+              <span class="suffix">/ day</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-as-text">Student loan plan</span>
+            <div class="chip-group" id="studentLoan">
+              <label class="chip"><input type="checkbox" value="plan1" /><span>Plan 1</span></label>
+              <label class="chip"><input type="checkbox" value="plan2" /><span>Plan 2</span></label>
+              <label class="chip"><input type="checkbox" value="plan4" /><span>Plan 4</span></label>
+              <label class="chip"><input type="checkbox" value="plan5" /><span>Plan 5</span></label>
+              <label class="chip"><input type="checkbox" value="postgrad" /><span>Postgrad</span></label>
+            </div>
+          </div>
+
+          <label class="checkline">
+            <input type="checkbox" id="appLevy" checked />
+            <span>Umbrella deducts apprenticeship levy (0.5%)</span>
+          </label>
+        </div>
+      </form>
+
+      <!-- Results -->
+      <div class="results" id="results">
+        <article class="result-card" data-scenario="outside">
+          <header>
+            <h2>Outside IR35</h2>
+            <span class="tag">Limited company</span>
+          </header>
+          <p class="takehome"><span class="cur">£</span><span class="num" id="outTakeHome">0</span><span class="per">/ year</span></p>
+          <p class="sub"><span id="outMonthly">£0</span> / month · keeps <span id="outPct">0%</span> of billing</p>
+          <div class="bar" id="outBar" aria-hidden="true"></div>
+          <p class="winner-flag" id="outWinner" hidden>Higher take-home</p>
+        </article>
+
+        <article class="result-card" data-scenario="inside">
+          <header>
+            <h2>Inside IR35</h2>
+            <span class="tag">Umbrella</span>
+          </header>
+          <p class="takehome"><span class="cur">£</span><span class="num" id="inTakeHome">0</span><span class="per">/ year</span></p>
+          <p class="sub"><span id="inMonthly">£0</span> / month · keeps <span id="inPct">0%</span> of rate</p>
+          <div class="bar" id="inBar" aria-hidden="true"></div>
+          <p class="winner-flag" id="inWinner" hidden>Higher take-home</p>
+        </article>
+
+        <div class="delta" id="delta" role="status"></div>
+
+        <div class="result-actions">
+          <button type="button" class="btn ghost" id="shareBtn">Copy share link</button>
+          <button type="button" class="btn ghost" id="printBtn">Save as PDF</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AD SLOT (in-content) ============ -->
+  <div class="ad-slot" data-ad="in-content" aria-hidden="true">
+    <!-- AdSense in-article unit goes here. See MONETISATION.md. -->
+  </div>
+
+  <!-- ============ BREAKDOWN ============ -->
+  <section class="breakdown" id="breakdown">
+    <div class="section-head">
+      <h2>Where every pound goes</h2>
+      <p>Most calculators hide the employment costs. This one shows the full split, so you can see exactly why the two routes differ.</p>
+    </div>
+    <div class="breakdown-grid">
+      <div class="panel ledger" id="outLedger">
+        <h3>Outside IR35 · Limited company</h3>
+        <div class="rows" id="outRows"></div>
+      </div>
+      <div class="panel ledger" id="inLedger">
+        <h3>Inside IR35 · Umbrella</h3>
+        <div class="rows" id="inRows"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PERMANENT EQUIVALENT ============ -->
+  <section class="equiv" id="equiv">
+    <div class="equiv-inner">
+      <p class="equiv-eyebrow">Reality check</p>
+      <p class="equiv-line" id="equivLine">…</p>
+      <p class="equiv-note">A permanent role usually adds paid holiday, sick pay, employer pension and notice protection on top, which contracting does not.</p>
+    </div>
+  </section>
+
+  <!-- ============ PARTNERS (monetisation) ============ -->
+  <section class="partners" id="partners">
+    <div class="section-head">
+      <h2>Next steps</h2>
+      <p>Sorted your numbers? These are the services contractors usually line up next. <span class="muted">Sponsored slots — see notes below.</span></p>
+    </div>
+    <div class="partner-grid">
+      <a class="partner-card" href="#" rel="sponsored nofollow" data-partner="accountant">
+        <span class="partner-kicker">Limited company</span>
+        <span class="partner-title">Contractor accountants</span>
+        <span class="partner-desc">Monthly accounting, payroll and dividend planning for your own company.</span>
+        <span class="partner-cta">Compare options</span>
+      </a>
+      <a class="partner-card" href="#" rel="sponsored nofollow" data-partner="umbrella">
+        <span class="partner-kicker">Inside IR35</span>
+        <span class="partner-title">Umbrella companies</span>
+        <span class="partner-desc">FCSA-accredited umbrellas with transparent margins and same-day pay.</span>
+        <span class="partner-cta">Compare options</span>
+      </a>
+      <a class="partner-card" href="#" rel="sponsored nofollow" data-partner="mortgage">
+        <span class="partner-kicker">Borrowing</span>
+        <span class="partner-title">Contractor mortgages</span>
+        <span class="partner-desc">Lenders that assess affordability on your day rate, not just payslips.</span>
+        <span class="partner-cta">Compare options</span>
+      </a>
+    </div>
+    <p class="affiliate-disclosure">When live, some links here are paid partnerships. They never change the numbers above, and we only list services a contractor would plausibly want. See <a href="#how-it-works">how it works</a>.</p>
+  </section>
+
+  <!-- ============ HOW IT WORKS / METHODOLOGY ============ -->
+  <section class="method" id="how-it-works">
+    <div class="section-head">
+      <h2>How the numbers are worked out</h2>
+      <p>Everything below uses published 2025/26 rest-of-UK rates. Scotland has different income tax bands and is not yet covered.</p>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-block">
+        <h3>Outside IR35 (limited company)</h3>
+        <ol>
+          <li>Your company invoices the day rate across the weeks you work.</li>
+          <li>It pays you a director's salary, plus employer NI on it (15% above £5,000; Employment Allowance does not apply to a single-director company).</li>
+          <li>Corporation tax is charged on the profit left after salary, employer NI, pension and expenses: 19% up to £50,000, 25% above £250,000, with marginal relief between.</li>
+          <li>The remaining profit is taken as dividends, taxed at 8.75%, 33.75% and 39.35% after the £500 dividend allowance.</li>
+          <li>Income tax and employee NI apply to the salary.</li>
+        </ol>
+      </div>
+      <div class="method-block">
+        <h3>Inside IR35 (umbrella)</h3>
+        <ol>
+          <li>The agency pays the umbrella your assignment rate.</li>
+          <li>The umbrella keeps its margin, then deducts the employment costs it is liable for: employer NI (15% above £5,000) and, usually, the apprenticeship levy (0.5%).</li>
+          <li>What is left becomes your gross pay.</li>
+          <li>Income tax and employee NI are deducted from that gross pay, the same as any employee.</li>
+          <li>You receive the rest. The employer costs are why an umbrella rate keeps less than the same headline rate outside IR35.</li>
+        </ol>
+      </div>
+    </div>
+
+    <details class="rates">
+      <summary>2025/26 rates used (with sources)</summary>
+      <ul>
+        <li><strong>Personal allowance</strong> £12,570, tapered by £1 for every £2 of income over £100,000.</li>
+        <li><strong>Income tax</strong> 20% to £50,270, 40% to £125,140, 45% above.</li>
+        <li><strong>Employee NI</strong> 8% between £12,570 and £50,270, 2% above.</li>
+        <li><strong>Employer NI</strong> 15% above the £5,000 secondary threshold.</li>
+        <li><strong>Dividends</strong> £500 allowance, then 8.75% / 33.75% / 39.35%.</li>
+        <li><strong>Corporation tax</strong> 19% to £50,000, 25% above £250,000, marginal relief (3/200) between.</li>
+        <li><strong>Apprenticeship levy</strong> 0.5%.</li>
+        <li><strong>Student loan</strong> 9% above the plan threshold (Plan 1 £26,065, Plan 2 £28,470, Plan 4 £32,745, Plan 5 £25,000), Postgraduate 6% above £21,000.</li>
+      </ul>
+      <p class="src">Sources: HMRC rates and thresholds, House of Commons Library briefing CBP-10237, and gov.uk student loan repayment guidance for 2025/26.</p>
+    </details>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="faq" id="faq">
+    <div class="section-head"><h2>Common questions</h2></div>
+    <div class="faq-list">
+      <details>
+        <summary>What is IR35, in one sentence?</summary>
+        <p>IR35 is the rule that decides whether a contractor is, for tax purposes, really an employee of the client. If a role is "inside" IR35 you are taxed broadly like an employee; if it is "outside" you can work through your own company and take dividends.</p>
+      </details>
+      <details>
+        <summary>Why do umbrella workers pay employer's National Insurance?</summary>
+        <p>The rate quoted to an umbrella, the assignment rate, is not a salary. It has to cover the employment costs an employer normally pays, including employer NI and the apprenticeship levy. Those come out of the assignment rate before your gross pay is set, which is why the take-home looks lower than the headline figure.</p>
+      </details>
+      <details>
+        <summary>Is outside IR35 always better paid?</summary>
+        <p>At most day rates a limited company keeps more, because dividends avoid National Insurance and the company controls when profit is drawn. The gap narrows at lower rates and once you add accountancy fees and the admin of running a company. Inside-IR35 roles also sometimes carry a higher headline rate to compensate, which you can model above.</p>
+      </details>
+      <details>
+        <summary>Does this include VAT?</summary>
+        <p>No. For most contractors VAT is collected from the client and passed to HMRC, so it does not change take-home. The Flat Rate Scheme can leave a small surplus, but it is marginal and is left out to keep the comparison honest.</p>
+      </details>
+      <details>
+        <summary>How accurate is it?</summary>
+        <p>It uses published 2025/26 rates and the standard order of deductions, and the engine is unit-tested against hand-worked examples. It is a planning estimate, not tax advice, and it does not capture every personal circumstance. Check anything important with a qualified accountant.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="foot-grid">
+    <div>
+      <span class="brand-name">NetRate</span>
+      <p class="foot-note">UK contractor take-home calculator. Rates for the 2025/26 tax year, rest of UK.</p>
+    </div>
+    <p class="disclaimer">This tool gives an estimate for general guidance only. It is not financial, tax or legal advice. Figures may not reflect your full circumstances. Always confirm with a qualified professional before making decisions.</p>
+  </div>
+  <p class="foot-meta">Built as an open project. Last updated June 2026.</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

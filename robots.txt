@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://billyzhonguom.github.io/uk-contractor-calculator/sitemap.xml
