@@ -81,7 +81,7 @@ def pill(x, y, text):
     draw.text((x + 22, y + 11), text, font=f_pill, fill=(255, 255, 255))
     return x + tw + 44 + 16
 
-nx = pill(M, 470, "2025/26 tax year")
+nx = pill(M, 470, "2026/27 tax year")
 nx = pill(nx, 470, "Free, no sign-up")
 
 img.save(os.path.join(os.path.dirname(__file__), "og.png"), "PNG")

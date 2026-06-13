@@ -35,6 +35,10 @@ const num = (el, fallback = 0) => {
   const v = parseFloat(el.value);
   return Number.isFinite(v) ? v : fallback;
 };
+const radio = (name) => {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : null;
+};
 
 function readInputs() {
   const strategy = els.salaryStrategy.value;
@@ -54,6 +58,7 @@ function readInputs() {
     umbrellaPension: num(els.umbrellaPension),
     includeApprenticeshipLevy: els.appLevy.checked,
     studentLoanPlans: plans,
+    taxYear: radio("year") || "2026/27",
   };
 }
 
@@ -69,7 +74,7 @@ function animateNumber(el, key, to) {
   // Cancel any in-flight animation for this number so rapid changes can't
   // leave two rAF loops fighting over the same element.
   if (rafIds[key]) cancelAnimationFrame(rafIds[key]);
-  if (reduceMotion || from === to) {
+  if (reduceMotion || document.hidden || from === to) {
     el.textContent = plain0.format(Math.round(to));
     rafIds[key] = null;
     return;
@@ -185,6 +190,8 @@ function render() {
   const cfg = readInputs();
   const { outside, inside, annualBilling, assignmentAnnual } = compute(cfg);
 
+  $("yearBadge").textContent = "Tax year " + cfg.taxYear;
+
   animateNumber($("outTakeHome"), "outTakeHome", outside.takeHome);
   animateNumber($("inTakeHome"), "inTakeHome", inside.takeHome);
   $("outMonthly").textContent = money(outside.takeHomeMonthly);
@@ -217,7 +224,7 @@ function render() {
   const best = outWins ? outside : inside;
   const bestLabel = outWins ? "Outside IR35" : "Umbrella";
   if (best.takeHome > 0) {
-    const equiv = Math.round(permanentSalaryForNet(best.takeHome, cfg.studentLoanPlans) / 500) * 500;
+    const equiv = Math.round(permanentSalaryForNet(best.takeHome, cfg.studentLoanPlans, cfg.taxYear) / 500) * 500;
     $("equivLine").innerHTML = `${bestLabel}, your <strong>${money(best.takeHome)}</strong> take-home is like a permanent salary of about <strong>${money(equiv)}</strong>.`;
   } else {
     $("equivLine").textContent = "Enter your day rate to see the permanent-salary equivalent.";
@@ -242,6 +249,7 @@ function syncURL(cfg) {
   if (cfg.umbrellaDayRate !== undefined) p.set("ur", cfg.umbrellaDayRate);
   if (!cfg.includeApprenticeshipLevy) p.set("al", "0");
   if (cfg.studentLoanPlans.length) p.set("sl", cfg.studentLoanPlans.join(","));
+  if (cfg.taxYear && cfg.taxYear !== "2026/27") p.set("y", cfg.taxYear);
   history.replaceState(null, "", "?" + p.toString());
 }
 
@@ -249,6 +257,7 @@ function applyURL() {
   const p = new URLSearchParams(location.search);
   if (![...p.keys()].length) return;
   const set = (el, key) => { if (p.has(key)) el.value = p.get(key); };
+  if (p.get("y") === "2025/26") { const r = document.getElementById("year2526"); if (r) r.checked = true; }
   set(els.dayRate, "r");
   set(els.daysPerWeek, "d");
   set(els.weeksPerYear, "w");

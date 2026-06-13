@@ -193,6 +193,20 @@ input[type="number"] { -moz-appearance: textfield; }
 .input-money input { padding-right: 58px; }
 .custom-salary { margin-top: 10px; }
 
+/* Segmented control (tax-year toggle) */
+.segmented {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  background: var(--surface-2); border-radius: var(--r-input); padding: 4px; gap: 4px;
+}
+.segmented input { position: absolute; opacity: 0; pointer-events: none; }
+.segmented label {
+  margin: 0; text-align: center; padding: 9px 10px; border-radius: 7px; cursor: pointer;
+  font-size: 0.88rem; font-weight: 600; color: var(--text-muted); user-select: none;
+  transition: background 0.16s var(--ease), color 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+.segmented input:checked + label { background: var(--surface); color: var(--accent-strong); box-shadow: var(--shadow-sm); }
+.segmented input:focus-visible + label { box-shadow: 0 0 0 3px var(--accent-soft); }
+
 /* Disclosure / advanced */
 .disclosure {
   display: flex; align-items: center; justify-content: space-between; width: 100%;

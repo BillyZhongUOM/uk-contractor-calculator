@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>UK Contractor Take-Home Calculator 2025/26 — Outside vs Inside IR35 | NetRate</title>
-<meta name="description" content="Free UK contractor take-home pay calculator for 2025/26. Compare outside IR35 (limited company) vs inside IR35 (umbrella), with every deduction shown: corporation tax, dividends, employer and employee NI, apprenticeship levy and student loan. No sign-up." />
+<title>UK Contractor Take-Home Calculator 2026/27 — Outside vs Inside IR35 | NetRate</title>
+<meta name="description" content="Free UK contractor take-home pay calculator for 2026/27 (and 2025/26). Compare outside IR35 (limited company) vs inside IR35 (umbrella), with every deduction shown: corporation tax, dividends, employer and employee NI, apprenticeship levy and student loan. No sign-up." />
 <meta name="theme-color" content="#0E7C5A" />
 <link rel="canonical" href="https://billyzhonguom.github.io/uk-contractor-calculator/" />
 
 <!-- Open Graph / social -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="UK Contractor Take-Home Calculator 2025/26 — Outside vs Inside IR35" />
-<meta property="og:description" content="Compare limited company vs umbrella take-home pay with every deduction shown. 2025/26 rates. Free, no sign-up." />
+<meta property="og:title" content="UK Contractor Take-Home Calculator 2026/27 — Outside vs Inside IR35" />
+<meta property="og:description" content="Compare limited company vs umbrella take-home pay with every deduction shown. 2026/27 and 2025/26 rates. Free, no sign-up." />
 <meta property="og:url" content="https://billyzhonguom.github.io/uk-contractor-calculator/" />
 <meta property="og:image" content="https://billyzhonguom.github.io/uk-contractor-calculator/assets/og.png" />
 <meta property="og:site_name" content="NetRate" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="UK Contractor Take-Home Calculator 2025/26" />
+<meta name="twitter:title" content="UK Contractor Take-Home Calculator 2026/27" />
 <meta name="twitter:description" content="Outside IR35 (limited) vs inside IR35 (umbrella), every deduction shown. Free." />
 <meta name="twitter:image" content="https://billyzhonguom.github.io/uk-contractor-calculator/assets/og.png" />
 
@@ -39,7 +39,7 @@
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Any",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
-  "description": "Compare UK contractor take-home pay outside IR35 (limited company) and inside IR35 (umbrella) for the 2025/26 tax year.",
+  "description": "Compare UK contractor take-home pay outside IR35 (limited company) and inside IR35 (umbrella) for the 2026/27 and 2025/26 tax years.",
   "url": "https://billyzhonguom.github.io/uk-contractor-calculator/"
 }
 </script>
@@ -52,7 +52,7 @@
     <span class="brand-name">NetRate</span>
   </a>
   <div class="topbar-right">
-    <span class="year-badge" title="Figures use 2025/26 rest-of-UK tax rates">Tax year 2025/26</span>
+    <span class="year-badge" id="yearBadge" title="Figures use rest-of-UK tax rates">Tax year 2026/27</span>
     <a class="topbar-link" href="#how-it-works">How it works</a>
     <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
       <span class="theme-icon" aria-hidden="true"></span>
@@ -65,7 +65,7 @@
   <section class="hero">
     <div class="hero-copy">
       <h1>UK Contractor Take-Home Calculator</h1>
-      <p class="lede">Compare your real take-home pay outside IR35 (limited company) and inside IR35 (umbrella), with every deduction shown for the 2025/26 tax year.</p>
+      <p class="lede">Compare your real take-home pay outside IR35 (limited company) and inside IR35 (umbrella), with every deduction shown for the 2026/27 tax year.</p>
     </div>
 
     <div class="tool">
@@ -90,6 +90,17 @@
             <input type="number" id="weeksPerYear" inputmode="numeric" min="1" max="52" step="1" value="44" />
             <p class="hint">Working weeks after holidays</p>
           </div>
+        </div>
+
+        <div class="field">
+          <span class="label-as-text">Tax year</span>
+          <div class="segmented" id="yearSeg" role="radiogroup" aria-label="Tax year">
+            <input type="radio" name="year" id="year2627" value="2026/27" checked />
+            <label for="year2627">2026/27</label>
+            <input type="radio" name="year" id="year2526" value="2025/26" />
+            <label for="year2526">2025/26</label>
+          </div>
+          <p class="hint">Dividend tax rose for 2026/27 (10.75% / 35.75%).</p>
         </div>
 
         <button type="button" class="disclosure" id="advancedToggle" aria-expanded="false" aria-controls="advanced">
@@ -279,7 +290,7 @@
   <section class="method" id="how-it-works">
     <div class="section-head">
       <h2>How the numbers are worked out</h2>
-      <p>Everything below uses published 2025/26 rest-of-UK rates. Scotland has different income tax bands and is not yet covered.</p>
+      <p>Everything below uses published rest-of-UK rates for the tax year you select. Scotland has different income tax bands and is not yet covered.</p>
     </div>
 
     <div class="method-grid">
@@ -289,7 +300,7 @@
           <li>Your company invoices the day rate across the weeks you work.</li>
           <li>It pays you a director's salary, plus employer NI on it (15% above £5,000; Employment Allowance does not apply to a single-director company).</li>
           <li>Corporation tax is charged on the profit left after salary, employer NI, pension and expenses: 19% up to £50,000, 25% above £250,000, with marginal relief between.</li>
-          <li>The remaining profit is taken as dividends, taxed at 8.75%, 33.75% and 39.35% after the £500 dividend allowance.</li>
+          <li>The remaining profit is taken as dividends, taxed at 10.75%, 35.75% and 39.35% for 2026/27 (8.75%, 33.75% and 39.35% for 2025/26) after the £500 dividend allowance.</li>
           <li>Income tax and employee NI apply to the salary.</li>
         </ol>
       </div>
@@ -306,18 +317,18 @@
     </div>
 
     <details class="rates">
-      <summary>2025/26 rates used (with sources)</summary>
+      <summary>Rates used (with sources)</summary>
       <ul>
         <li><strong>Personal allowance</strong> £12,570, tapered by £1 for every £2 of income over £100,000.</li>
         <li><strong>Income tax</strong> 20% to £50,270, 40% to £125,140, 45% above.</li>
         <li><strong>Employee NI</strong> 8% between £12,570 and £50,270, 2% above.</li>
         <li><strong>Employer NI</strong> 15% above the £5,000 secondary threshold.</li>
-        <li><strong>Dividends</strong> £500 allowance, then 8.75% / 33.75% / 39.35%.</li>
+        <li><strong>Dividends</strong> £500 allowance, then 10.75% / 35.75% / 39.35% (2026/27); 8.75% / 33.75% / 39.35% (2025/26).</li>
         <li><strong>Corporation tax</strong> 19% to £50,000, 25% above £250,000, marginal relief (3/200) between.</li>
         <li><strong>Apprenticeship levy</strong> 0.5%.</li>
-        <li><strong>Student loan</strong> 9% above the plan threshold (Plan 1 £26,065, Plan 2 £28,470, Plan 4 £32,745, Plan 5 £25,000), Postgraduate 6% above £21,000.</li>
+        <li><strong>Student loan</strong> 9% above the plan threshold (2026/27: Plan 1 £26,900, Plan 2 £29,385, Plan 4 £33,795, Plan 5 £25,000), Postgraduate 6% above £21,000.</li>
       </ul>
-      <p class="src">Sources: HMRC rates and thresholds, House of Commons Library briefing CBP-10237, and gov.uk student loan repayment guidance for 2025/26.</p>
+      <p class="src">Sources: HMRC rates and thresholds for employers, House of Commons Library briefings, gov.uk student loan repayment guidance for the selected year, and the Autumn 2025 Budget for the 2026/27 dividend rate rise.</p>
     </details>
   </section>
 
@@ -330,12 +341,16 @@
         <p>IR35 is the rule that decides whether a contractor is, for tax purposes, really an employee of the client. If a role is "inside" IR35 you are taxed broadly like an employee; if it is "outside" you can work through your own company and take dividends.</p>
       </details>
       <details>
+        <summary>What changed for the 2026/27 tax year?</summary>
+        <p>The dividend tax rates rose by two percentage points from 6 April 2026: the ordinary rate went from 8.75% to 10.75% and the upper rate from 33.75% to 35.75% (the additional rate stays 39.35%). Everything else, income tax bands, National Insurance, the Employment Allowance and corporation tax, is unchanged from 2025/26. The dividend rise slightly narrows the outside-IR35 advantage, which you can see by switching the tax-year toggle.</p>
+      </details>
+      <details>
         <summary>Why do umbrella workers pay employer's National Insurance?</summary>
         <p>The rate quoted to an umbrella, the assignment rate, is not a salary. It has to cover the employment costs an employer normally pays, including employer NI and the apprenticeship levy. Those come out of the assignment rate before your gross pay is set, which is why the take-home looks lower than the headline figure.</p>
       </details>
       <details>
         <summary>Is outside IR35 always better paid?</summary>
-        <p>At most day rates a limited company keeps more, because dividends avoid National Insurance and the company controls when profit is drawn. The gap narrows at lower rates and once you add accountancy fees and the admin of running a company. Inside-IR35 roles also sometimes carry a higher headline rate to compensate, which you can model above.</p>
+        <p>At most day rates a limited company keeps more, because dividends avoid National Insurance and the company controls when profit is drawn. The gap narrows at lower rates, once you add accountancy fees and the admin of running a company, and again with the 2026/27 dividend rise. Inside-IR35 roles also sometimes carry a higher headline rate to compensate, which you can model above.</p>
       </details>
       <details>
         <summary>Does this include VAT?</summary>
@@ -343,7 +358,7 @@
       </details>
       <details>
         <summary>How accurate is it?</summary>
-        <p>It uses published 2025/26 rates and the standard order of deductions, and the engine is unit-tested against hand-worked examples. It is a planning estimate, not tax advice, and it does not capture every personal circumstance. Check anything important with a qualified accountant.</p>
+        <p>It uses published rates for the year you choose and the standard order of deductions, and the engine is unit-tested against hand-worked examples. It is a planning estimate, not tax advice, and it does not capture every personal circumstance. Check anything important with a qualified accountant.</p>
       </details>
     </div>
   </section>
@@ -353,7 +368,7 @@
   <div class="foot-grid">
     <div>
       <span class="brand-name">NetRate</span>
-      <p class="foot-note">UK contractor take-home calculator. Rates for the 2025/26 tax year, rest of UK.</p>
+      <p class="foot-note">UK contractor take-home calculator. Rates for the 2026/27 and 2025/26 tax years, rest of UK.</p>
     </div>
     <p class="disclaimer">This tool gives an estimate for general guidance only. It is not financial, tax or legal advice. Figures may not reflect your full circumstances. Always confirm with a qualified professional before making decisions.</p>
   </div>
